@@ -12,7 +12,7 @@ import rclpy
 from rclpy.node import Node
 from geometry_msgs.msg import Twist 
 
-import pyrealsense2 as rs
+import pyrealsense2.pyrealsense2 as rs
  
 from PIL import Image as PILImage
 from yolov4 import Detector
@@ -32,8 +32,8 @@ path_darknet = "/home/ubuntu/YoloV4/darknet/"
 def detect_humans(a):    
     img = PILImage.fromarray(a) # using frames directly without saving 
     print(type(img))
-#    d = Detector(meta_path= path_darknet + 'cfg/coco.data', lib_darknet_path= path_darknet + 'libdarknet.so', config_path= path_darknet + 'cfg/yolov4-tiny.cfg', weights_path= path_darknet + 'model_data/yolov4-tiny.weights',gpu_id = None)
-    d = Detector(config_path= path_darknet + 'cfg/yolov4-tiny.cfg', weights_path= path_darknet + 'model_data/yolov4-tiny.weights', gpu_id=1)    
+    d = Detector(meta_path= path_darknet + 'cfg/coco.data', lib_darknet_path= path_darknet + 'libdarknet.so', config_path= path_darknet + 'cfg/yolov4-tiny.cfg', weights_path= path_darknet + 'model_data/yolov4-tiny.weights',gpu_id = None)
+#    d = Detector(config_path= path_darknet + 'cfg/yolov4-tiny.cfg', weights_path= path_darknet + 'model_data/yolov4-tiny.weights', gpu_id=1)    
     img_arr = np.array(img.resize((d.network_width(), d.network_height())))
     detections = d.perform_detect(image_path_or_buf=img_arr, show_image=True)
     peoplenumber = 0
