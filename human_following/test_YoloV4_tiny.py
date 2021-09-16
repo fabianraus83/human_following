@@ -42,7 +42,7 @@ path_darknet = "/home/fabian/yolov4/darknet/"
 #        
 #    return humancoordinate, maxconfi  
 
-def detect_humans(a):    
+def detect_humans():    
     img = PILImage.open('image/image.png')    
     print(type(img))
     d = Detector(config_path= path_darknet + 'cfg/yolov4-tiny.cfg', weights_path= path_darknet + 'model_data/yolov4-tiny.weights', gpu_id=1)
@@ -68,4 +68,6 @@ def detect_humans(a):
         maxconfi = detection.class_confidence
         humancoordinate = centrecoordinate
         
-    return humancoordinate, maxconfi  
+    return humancoordinate, maxconfi 
+
+detect_humans() 

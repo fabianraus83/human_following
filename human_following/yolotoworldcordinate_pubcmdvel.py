@@ -22,6 +22,8 @@ import time
 import cv2
 import math
 
+import os
+
 angle1 = 15
 angle2 = 30
 
@@ -32,6 +34,7 @@ path_darknet = "/home/ubuntu/YoloV4/darknet/"
 def detect_humans(a):    
     img = PILImage.fromarray(a) # using frames directly without saving 
     print(type(img))
+    os.chdir(path_darknet)
     d = Detector(meta_path= path_darknet + 'cfg/coco.data', lib_darknet_path= path_darknet + 'libdarknet.so', config_path= path_darknet + 'cfg/yolov4-tiny.cfg', weights_path= path_darknet + 'model_data/yolov4-tiny.weights',gpu_id = None)
 #    d = Detector(config_path= path_darknet + 'cfg/yolov4-tiny.cfg', weights_path= path_darknet + 'model_data/yolov4-tiny.weights', gpu_id=1)    
     img_arr = np.array(img.resize((d.network_width(), d.network_height())))
@@ -161,7 +164,7 @@ class MinimalPublisher(Node):
          self.exit = bool()
          self.x = float(0)
          self.y = float(0)
-         
+         self.counter = 0
       def timer_callback(self):
           try:
               getcoordinates(self)
